@@ -13,12 +13,16 @@ let pokemonList = [
   ];
 
 
-for (let i = 0; i < pokemonList.length; i++) {
-  // Looks for large pokemon with a height over 11
-  if (pokemonList[i].height > 11) {
-    document.write("<p>" + pokemonList[i].name + " " + "(height " + pokemonList[i].height + ") - Whoa! That's a big one!</p>");
-  }
-  else {
-    document.write("<p>" + pokemonList[i].name + " " + "(height " + pokemonList[i].height + ") </p>");
-  }
-}
+// for (let i = 0; i < pokemonList.length; i++) {
+//   // Looks for large pokemon with a height over 11
+//   if (pokemonList[i].height > 11) {
+//     document.write("<p>" + pokemonList[i].name + " " + "(height " + pokemonList[i].height + ") - Whoa! That's a big one!</p>");
+//   }
+//   else {
+//     document.write("<p>" + pokemonList[i].name + " " + "(height " + pokemonList[i].height + ") </p>");
+//   }
+// }
+
+pokemonList.forEach(function(pokemon) {
+  document.write("<p>" + pokemon.name + " " + "(height: " + pokemon.height + ") </p>");
+});
