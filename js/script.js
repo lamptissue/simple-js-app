@@ -1,3 +1,5 @@
+let pokemonRepository = (function () {
+
 let pokemonList = [
   {name: "Bulbasaur",
    height: 10,
@@ -12,17 +14,21 @@ let pokemonList = [
    types: ["water"]}
   ];
 
+function getAll() {
+  return pokemonList;
+}
+function add(pokemon) {
+  pokemonList.push(pokemon);
+}
 
-// for (let i = 0; i < pokemonList.length; i++) {
-//   // Looks for large pokemon with a height over 11
-//   if (pokemonList[i].height > 11) {
-//     document.write("<p>" + pokemonList[i].name + " " + "(height " + pokemonList[i].height + ") - Whoa! That's a big one!</p>");
-//   }
-//   else {
-//     document.write("<p>" + pokemonList[i].name + " " + "(height " + pokemonList[i].height + ") </p>");
-//   }
-// }
+return {
+  add: add,
+  getAll: getAll
+};
+})();
 
-pokemonList.forEach(function(pokemon) {
+// test if add works
+pokemonRepository.add({name: "Snorlax", height: 200, types: "Normal"});
+pokemonRepository.getAll().forEach(function(pokemon) {
   document.write("<p>" + pokemon.name + " " + "(height: " + pokemon.height + ") </p>");
 });
