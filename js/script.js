@@ -57,6 +57,5 @@ pokemonRepository.add({name: "Snorlax", height: 200, types:"Normal"});
 pokemonRepository.add("name: test");
 
 pokemonRepository.getAll().forEach(function(pokemon) {
-  // document.write("<p>" + pokemon.name + " " + "(height: " + pokemon.height + ") </p>");
 pokemonRepository.addListItem(pokemon);
 });
