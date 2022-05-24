@@ -27,10 +27,26 @@ else {
   pokemonList.push(pokemon);
 }
 }
+function addListItem(pokemon) {
+  let pokemonList = document.querySelector(".pokemon-list");
+  let listItem = document.createElement("li");
+  let button = document.createElement("button");
+  button.innerText = pokemon.name;
+  button.classList.add("poke-button")
+  listItem.appendChild(button);
+  pokemonList.appendChild(listItem);
+  button.addEventListener('click', function () {
+  showDetails(pokemon)
+  });
 
+}
+function showDetails(pokemon) {
+  console.log(pokemon);
+}
 return {
   add: add,
-  getAll: getAll
+  getAll: getAll,
+  addListItem: addListItem
 };
 })();
 
@@ -41,5 +57,6 @@ pokemonRepository.add({name: "Snorlax", height: 200, types:"Normal"});
 pokemonRepository.add("name: test");
 
 pokemonRepository.getAll().forEach(function(pokemon) {
-  document.write("<p>" + pokemon.name + " " + "(height: " + pokemon.height + ") </p>");
+  // document.write("<p>" + pokemon.name + " " + "(height: " + pokemon.height + ") </p>");
+pokemonRepository.addListItem(pokemon);
 });
