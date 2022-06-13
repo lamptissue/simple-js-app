@@ -92,10 +92,9 @@ let pokemonRepository = (function () {
     });
   }
 
-
  let modalContainer = document.querySelector('#modal-container');
   function showModal(item) {
-    // Clear all existing modal content
+    // Clear all current modal content
   modalContainer.innerHTML = '';
 
   let modal = document.createElement('div');
@@ -119,24 +118,11 @@ let pokemonRepository = (function () {
   typeElement.innerText = 'Types: ' + item.types;
 
 
-
+// add the pokemon image
   let myImage = document.createElement('img');
   myImage.src = item.imageUrl;
   myImage.classList.add('pokemon-modal')
 
-
-  // let imgElement = document.createElement('img');
-	// 	imgElement.scr = pokemon.imageUrl;
-	// 	imgElement.classList.add('pokemon-front-image');
-	// 	imgElement.setAttribute('src', 'image of ' + pokemon.name);
-  //
- 	// 	modal.appendChild(imgElement);
-// let container = document.querySelector('#image-container');
-  // let myImage = document.createElement('img');
-  // myImage.src = item.imageUrl;
-  //
-  //
-  // modal.appendChild(myImage);
   modal.appendChild(myImage);
   modal.appendChild(nameElement);
   modal.appendChild(heightElement);
@@ -151,27 +137,19 @@ let pokemonRepository = (function () {
 function hideModal() {
     modalContainer.classList.remove('is-visible');
   }
-
+// close modal when user presses escape on keyboard
   window.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && modalContainer.classList.contains('is-visible')) {
       hideModal();
     }
   });
+  // close modal when user clicks
   modalContainer.addEventListener('click', (e) => {
-    // Since this is also triggered when clicking INSIDE the modal
-    // We only want to close if the user clicks directly on the overlay
     let target = e.target;
     if (target === modalContainer) {
       hideModal();
     }
   });
-
-// document.querySelector('#show-modal').addEventListener('click', () => {
-//   showModal('Modal title', 'This is the modal content!');
-// });
-
-// create modal to show Pokemons name, height and image of it
-// make it able to close with keyboard/mouse/escape key/click otuside
 
   return {
     add: add,
