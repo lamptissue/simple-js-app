@@ -6,7 +6,6 @@ body {
 ul {
   list-style-type: none;
 }
-
 a, a:hover {
   color: #000;
 }
@@ -24,7 +23,6 @@ a, a:hover {
   background-color: #17285E;
   color: white;
 }
-
 .button-class:hover {
   background-color: #2C6CB5;
   color:white;
