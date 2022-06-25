@@ -1,19 +1,19 @@
-/* .poke-button {
-  width: 100px;
-  background-color: MediumAquamarine;
-  border: none;
-  box-shadow: 4px 3px;
-  margin: 5px;
-  } */
-
-  body {
-    font-family: 'Open Sans', sans-serif;
-  }
+body {
+  font-family: 'Open Sans', sans-serif;
+  text-transform: capitalize;
+  background-color: #d5d8dc;
+}
 ul {
-    list-style-type: none;
+  list-style-type: none;
+}
+
+a, a:hover {
+  color: #000;
+}
+.container-fluid {
+  padding: 0;
 }
 .button-class {
-  width: 150px;
   padding: 10px;
   text-align: center;
   text-decoration: none;
@@ -21,51 +21,49 @@ ul {
   font-size: 16px;
   margin: 4px 2px;
   cursor: pointer;
-  background-color: #78c5ef;
-  color: black;
-  border: 2px solid #2c528c;
+  background-color: #17285E;
+  color: white;
 }
 
-#modal-container.is-visible {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 88;
-  overflow: auto;
-  top: 0;
-  left: 0;
-  display: grid;
-  box-sizing: border-box;
-}
-.modal {
-  margin: auto;
-  display: inline-block;
-  box-sizing: border-box;
-  background-color: #fff;
-  padding: 12px;
-  width: 100%;
-  max-width: 500px;
-  text-align: left;
-  border-radius: 10px;
-}
-.modal-close {
-  background-color: MediumAquamarine;
-  border: none;
-  box-shadow: 3px 3px;
-  margin: 6px;
-  float: right;
-  cursor: pointer;
-}
-
-#modal-container {
-  display: none;
+.button-class:hover {
+  background-color: #2C6CB5;
+  color:white;
 }
 .pokemon-modal {
-  width: 150px;
-  height: 150px;
+  width: 200px;
+  height: 200px;
+  padding: 5px;
   background-image: linear-gradient(#73C0C6, #C2EDFA);
   border: #000 solid 2px;
   border-radius: 5px;
+  margin-bottom: 5px;
+}
+
+.modal-body {
   text-align: center;
+}
+
+#pokeball:hover {
+  animation: shake 0.5s;
+}
+
+@keyframes shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+main {
+  padding: 25px;
+}
+.navbar {
+  background-color:LightSlateGray;
 }

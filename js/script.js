@@ -16,23 +16,27 @@ let pokemonRepository = (function () {
     return pokemonList;
   }
   function addListItem(pokemon) {
-    let pokemonList = document.querySelector(".pokemon-list");
+    let pokemonList = document.querySelector("ul");
     let listpokemon = document.createElement("li");
+    listpokemon.classList.add('group-list-item');
+    listpokemon.classList.add("col-sm-12", "col-md-6", "col-lg-4");
     let button = document.createElement("button");
-    button.innerText = pokemon.name;
-    button.classList.add("button-class");
+    button.innerText = capitalizeFirstLetter(pokemon.name);
+    button.setAttribute('data-toggle', 'modal');
+    button.setAttribute('data-target', '.modal');
+    $(button).addClass('button-class btn-block btn m1');
     listpokemon.appendChild(button);
     pokemonList.appendChild(listpokemon);
     button.addEventListener("click", function(event) {
-    showDetails(pokemon);
+      showDetails(pokemon);
     });
   }
   const body = document.body;
-    const loadingMessage = document.createElement("div");
-    body.append(loadingMessage);
+  const loadingMessage = document.createElement("div");
+  body.append(loadingMessage);
 
   function showLoadingMessage() {
-      loadingMessage.innerText = "Loading...";
+    loadingMessage.innerText = "Loading...";
     console.log("Loading...");
   }
   function hideLoadingMessage(){
@@ -40,7 +44,7 @@ let pokemonRepository = (function () {
     console.log("Loading complete");
   }
 
-// this function runs a list of all the pokemon in the API
+  // this function runs a list of all the pokemon in the API
   function loadList() {
     showLoadingMessage();
     // Promise function
@@ -52,8 +56,7 @@ let pokemonRepository = (function () {
       json.results.forEach(function (item) {
         let pokemon = {
           name: item.name,
-          detailsUrl: item.url,
-          types: item.type
+          detailsUrl: item.url
         };
         // runs the function above "add" checking if the entry has all the required items
         add(pokemon);
@@ -65,7 +68,7 @@ let pokemonRepository = (function () {
     });
   };
 
-// This function runs the details when you click the button
+  // This function runs the details when you click the button
   function loadDetails(item) {
     showLoadingMessage();
     let url = item.detailsUrl;
@@ -74,11 +77,12 @@ let pokemonRepository = (function () {
     }).then(function (details) {
       hideLoadingMessage()
       // adds details of the pokemon
-      item.imageUrl = details.sprites.front_default;
+      item.imageUrl = details.sprites.other['official-artwork'].front_default;
       item.height = details.height;
+      item.weight = details.weight;
       let types = [];
-			details.types.forEach((item) => types.push(item.type.name));
-			item.types = types;
+      details.types.forEach((item) => types.push(item.type.name));
+      item.types = types;
       // this catches any errors
     }).catch(function (e) {
       hideLoadingMessage();
@@ -92,64 +96,40 @@ let pokemonRepository = (function () {
     });
   }
 
- let modalContainer = document.querySelector('#modal-container');
   function showModal(item) {
+    let modalBody = $(".modal-body");
+    let modalTitle = $(".modal-title");
+    let modalHeader = $(".modal-header");
     // Clear all current modal content
-  modalContainer.innerHTML = '';
+    modalTitle.empty();
+    modalBody.empty();
 
-  let modal = document.createElement('div');
-  modal.classList.add('modal');
+    // add details of the pokemon
 
+    // name
+    let nameElement = $("<h1>" + item.name + "</h1>");
+    // height
+    let heightElement = $("<p>" + "Height: " + item.height + "</p>");
+    // type
+    let typeElement = $("<p>" + "Types: " + item.types.join(', ') +  "</p>");
+    // weight
+    let weightElement = $("<p>" + "Weight: " + item.weight + "</p>");
 
-  // close the modal
-  let closeButtonElement = document.createElement('button');
-  closeButtonElement.classList.add('modal-close');
-  closeButtonElement.innerText = 'Close';
-  closeButtonElement.addEventListener('click', hideModal);
+    // add the pokemon image
+    let myImage = $('<img class="pokemon-modal">')
+    myImage.attr("src", item.imageUrl);
 
-// add details of the pokemon
-  let nameElement = document.createElement('h1');
-  nameElement.innerText = item.name;
+    modalBody.append(myImage);
+    modalTitle.append(nameElement);
+    modalBody.append(heightElement);
+    modalBody.append(typeElement);
+    modalBody.append(weightElement);
 
-  let heightElement = document.createElement('p');
-  heightElement.innerText = 'height: ' + item.height;
-
-  let typeElement = document.createElement('p');
-  typeElement.innerText = 'Types: ' + item.types;
-
-
-// add the pokemon image
-  let myImage = document.createElement('img');
-  myImage.src = item.imageUrl;
-  myImage.classList.add('pokemon-modal')
-
-  modal.appendChild(myImage);
-  modal.appendChild(nameElement);
-  modal.appendChild(heightElement);
-  modal.appendChild(typeElement);
-  modalContainer.appendChild(modal);
-  modal.appendChild(closeButtonElement);
-
-
-
-  modalContainer.classList.add('is-visible');
-}
-function hideModal() {
-    modalContainer.classList.remove('is-visible');
   }
-// close modal when user presses escape on keyboard
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modalContainer.classList.contains('is-visible')) {
-      hideModal();
-    }
-  });
-  // close modal when user clicks
-  modalContainer.addEventListener('click', (e) => {
-    let target = e.target;
-    if (target === modalContainer) {
-      hideModal();
-    }
-  });
+
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
 
   return {
     add: add,
