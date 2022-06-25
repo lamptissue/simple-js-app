@@ -127,6 +127,7 @@ let pokemonRepository = (function () {
 
   }
 
+// capitalize pokemon name
   function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
