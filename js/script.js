@@ -1,6 +1,6 @@
-let pokemonRepository = (function () {
-  let pokemonList = [];
-  let apiUrl = "https://pokeapi.co/api/v2/pokemon/?limit=150";
+const pokemonRepository = (function () {
+  const pokemonList = [];
+  const apiUrl = "https://pokeapi.co/api/v2/pokemon/?limit=150";
 
   function add(pokemon) {
     if (typeof pokemon === "object" && "name" in pokemon) {
@@ -13,11 +13,11 @@ let pokemonRepository = (function () {
     return pokemonList;
   }
   function addListItem(pokemon) {
-    let pokemonList = document.querySelector("ul");
-    let listpokemon = document.createElement("li");
+    const pokemonList = document.querySelector("ul");
+    const listpokemon = document.createElement("li");
     listpokemon.classList.add("group-list-item");
     listpokemon.classList.add("col-sm-12", "col-md-6", "col-lg-4");
-    let button = document.createElement("button");
+    const button = document.createElement("button");
     button.innerText = capitalizeFirstLetter(pokemon.name);
     button.setAttribute("data-toggle", "modal");
     button.setAttribute("data-target", ".modal");
@@ -53,7 +53,7 @@ let pokemonRepository = (function () {
         hideLoadingMessage();
         // runs a loop through the result and into the required keys
         json.results.forEach(function (item) {
-          let pokemon = {
+          const pokemon = {
             name: item.name,
             detailsUrl: item.url,
           };
@@ -71,7 +71,7 @@ let pokemonRepository = (function () {
   // This function runs the details when you click the button
   function loadDetails(item) {
     showLoadingMessage();
-    let url = item.detailsUrl;
+    const url = item.detailsUrl;
     return fetch(url)
       .then(function (response) {
         return response.json();
@@ -82,7 +82,7 @@ let pokemonRepository = (function () {
         item.imageUrl = details.sprites.other["official-artwork"].front_default;
         item.height = details.height;
         item.weight = details.weight;
-        let types = [];
+        const types = [];
         details.types.forEach((item) => types.push(item.type.name));
         item.types = types;
         // this catches any errors
@@ -100,9 +100,9 @@ let pokemonRepository = (function () {
   }
 
   function showModal(item) {
-    let modalBody = $(".modal-body");
-    let modalTitle = $(".modal-title");
-    let modalHeader = $(".modal-header");
+    const modalBody = $(".modal-body");
+    const modalTitle = $(".modal-title");
+    const modalHeader = $(".modal-header");
     // Clear all current modal content
     modalTitle.empty();
     modalBody.empty();
@@ -110,16 +110,16 @@ let pokemonRepository = (function () {
     // add details of the pokemon
 
     // name
-    let nameElement = $("<h1>" + item.name + "</h1>");
+    const nameElement = $("<h1>" + item.name + "</h1>");
     // height
-    let heightElement = $("<p>" + "Height: " + item.height + "</p>");
+    const heightElement = $("<p>" + "Height: " + item.height + "</p>");
     // type
-    let typeElement = $("<p>" + "Types: " + item.types.join(", ") + "</p>");
+    const typeElement = $("<p>" + "Types: " + item.types.join(", ") + "</p>");
     // weight
-    let weightElement = $("<p>" + "Weight: " + item.weight + "</p>");
+    const weightElement = $("<p>" + "Weight: " + item.weight + "</p>");
 
     // add the pokemon image
-    let myImage = $('<img class="pokemon-modal">');
+    const myImage = $('<img class="pokemon-modal">');
     myImage.attr("src", item.imageUrl);
 
     modalBody.append(myImage);
